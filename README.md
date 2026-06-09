@@ -1,59 +1,69 @@
-# FrontendEventos
+# 🎓 EventosUC - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+Aplicación web desarrollada en Angular para la gestión de eventos académicos de la Universidad del Cauca. Proyecto final de la asignatura Desarrollo de Aplicaciones Web.
 
-## Development server
+## Descripción
 
-To start a local development server, run:
+EventosUC permite a estudiantes y docentes consultar eventos académicos, realizar inscripciones y administrar la asistencia. La plataforma cuenta con dos roles: administrador y participante.
 
-```bash
-ng serve
-```
+## Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Registro e inicio de sesión con JWT
+- Roles: administrador y participante
+- CRUD completo de eventos (solo administrador)
+- Inscripción y cancelación de inscripción a eventos
+- Visualización de cupos disponibles en tiempo real
+- Protección de rutas con Auth Guard
+- Diseño responsivo y moderno
 
-## Code scaffolding
+## Tecnologías utilizadas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Angular 19 (standalone components)
+- TypeScript
+- HTML5 / CSS3
+- JWT para autenticación
+- HttpClient para consumo de API REST
 
-```bash
-ng generate component component-name
-```
+## Instalación y ejecución
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Clonar el repositorio y entrar a la carpeta:
+   git clone https://github.com/AndresPM14/frontend-eventos.git
+   cd frontend-eventos
 
-```bash
-ng generate --help
-```
+2. Instalar dependencias:
+   npm install
 
-## Building
+3. Configurar la URL del backend en src/app/core/services/api.config.ts:
+   export const API_URL = 'http://localhost:3000';
 
-To build the project run:
+4. Ejecutar la aplicación:
+   ng serve
 
-```bash
-ng build
-```
+5. Abrir en el navegador: http://localhost:4200
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+El backend debe estar corriendo antes de iniciar el frontend.
 
-## Running unit tests
+## Estructura del proyecto
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+src/app/
+├── auth/
+│   ├── login/          # Componente de inicio de sesión
+│   └── register/       # Componente de registro
+├── core/
+│   ├── guards/         # Auth guard para protección de rutas
+│   └── services/       # AuthService y configuración de API
+├── events/
+│   ├── event-list/     # Lista y gestión de eventos
+│   └── services/       # EventsService (CRUD + inscripciones)
 
-```bash
-ng test
-```
+## Repositorio Backend
 
-## Running end-to-end tests
+El backend fue desarrollado con NestJS y PostgreSQL:
+https://github.com/helenchantre/backend-eventos
 
-For end-to-end (e2e) testing, run:
+## Autor
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Andrés Pabón
+Estudiante de Ingeniería en Telemática
+Universidad del Cauca
+pabonandres@unicauca.edu.co
