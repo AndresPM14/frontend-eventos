@@ -28,5 +28,5 @@ export class AuthService {
     const u = localStorage.getItem('user');
     return u ? JSON.parse(u) : null;
   }
-  isAdmin() { return this.getUser()?.rol === 'admin'; }
+  isAdmin() { return this.getUser()?.rol === 'administrador'; }
 }
