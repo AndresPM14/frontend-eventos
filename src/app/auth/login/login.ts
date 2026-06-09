@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,22 +14,31 @@ import { AuthService } from '../../core/services/auth.service';
 export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
   correo = '';
   password = '';
   loading = false;
   error = '';
 
   onLogin() {
-    this.loading = true;
     this.error = '';
+    if (!this.correo.trim() || !this.password.trim()) {
+      this.error = 'Por favor completa todos los campos';
+      this.cdr.detectChanges();
+      return;
+    }
+    this.loading = true;
+    this.cdr.detectChanges();
     this.authService.login(this.correo, this.password).subscribe({
       next: () => {
         this.loading = false;
+        this.cdr.detectChanges();
         this.router.navigate(['/events']);
       },
       error: () => {
         this.loading = false;
         this.error = 'Correo o contraseña incorrectos';
+        this.cdr.detectChanges();
       }
     });
   }
