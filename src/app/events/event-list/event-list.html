@@ -4,6 +4,7 @@
   <div class="nav-right">
     <span class="nav-user">{{ user?.nombre || user?.correo }}</span>
     <span class="nav-role" [class.admin]="isAdmin">{{ isAdmin ? 'Administrador' : 'Participante' }}</span>
+    <button class="btn-nav" *ngIf="isAdmin" (click)="router.navigate(['/dashboard'])">📊 Estadísticas</button>
     <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
   </div>
 </nav>

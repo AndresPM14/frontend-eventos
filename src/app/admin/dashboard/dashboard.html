@@ -1,0 +1,116 @@
+<nav class="navbar">
+  <div class="nav-brand">🎓 EventosUC</div>
+  <div class="nav-right">
+    <span class="nav-user">{{ user?.correo }}</span>
+    <span class="nav-role admin">Administrador</span>
+    <button class="btn-nav" (click)="irEventos()">📋 Eventos</button>
+    <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>📊 Panel de Estadísticas</h1>
+  </div>
+
+  <div class="loading" *ngIf="loading">Cargando estadísticas...</div>
+
+  <ng-container *ngIf="!loading">
+    <!-- TARJETAS RESUMEN -->
+    <div class="stats-grid">
+      <div class="stat-card azul">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ totalEventos }}</span>
+          <span class="stat-label">Eventos totales</span>
+        </div>
+      </div>
+      <div class="stat-card verde">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ totalUsuarios }}</span>
+          <span class="stat-label">Participantes registrados</span>
+        </div>
+      </div>
+      <div class="stat-card naranja">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ totalInscripciones }}</span>
+          <span class="stat-label">Inscripciones activas</span>
+        </div>
+      </div>
+      <div class="stat-card morado">
+        <div class="stat-icon">📈</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ tasaOcupacion }}%</span>
+          <span class="stat-label">Tasa de ocupación</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTO MAS POPULAR -->
+    <div class="section" *ngIf="eventoMasPopular">
+      <h2>🏆 Evento más popular</h2>
+      <div class="evento-popular">
+        <div class="popular-info">
+          <h3>{{ eventoMasPopular.titulo }}</h3>
+          <p>📍 {{ eventoMasPopular.ubicacion }}</p>
+          <p>📅 {{ eventoMasPopular.fecha | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="popular-stats">
+          <span class="popular-num">{{ eventoMasPopular.inscritos }}</span>
+          <span class="popular-label">inscritos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA DE EVENTOS -->
+    <div class="section">
+      <h2>📋 Detalle de eventos</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Fecha</th>
+              <th>Inscritos</th>
+              <th>Capacidad</th>
+              <th>Cupos libres</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of eventos">
+              <td>{{ e.titulo }}</td>
+              <td>{{ e.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>{{ e.inscritos }}</td>
+              <td>{{ e.capacidad }}</td>
+              <td>{{ e.cuposDisponibles }}</td>
+              <td>
+                <span class="badge" [class.agotado]="e.cuposDisponibles === 0" [class.disponible]="e.cuposDisponibles > 0">
+                  {{ e.cuposDisponibles === 0 ? 'Agotado' : 'Disponible' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CUPOS POR EVENTO (barra visual) -->
+    <div class="section">
+      <h2>📊 Ocupación por evento</h2>
+      <div class="barras">
+        <div class="barra-item" *ngFor="let e of eventos">
+          <div class="barra-label">{{ e.titulo }}</div>
+          <div class="barra-track">
+            <div class="barra-fill" [style.width.%]="e.capacidad > 0 ? (e.inscritos / e.capacidad * 100) : 0"
+              [class.lleno]="e.cuposDisponibles === 0">
+            </div>
+          </div>
+          <div class="barra-num">{{ e.inscritos }}/{{ e.capacidad }}</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

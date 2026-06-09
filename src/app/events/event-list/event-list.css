@@ -112,3 +112,9 @@
 
 .input-error { border-color: #e53935 !important; }
 .field-error { color: #e53935; font-size: 0.8rem; margin-top: 0.25rem; display: block; }
+
+.btn-nav {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+}
+.btn-nav:hover { background: rgba(255,255,255,0.25); }

@@ -15,7 +15,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class EventList implements OnInit {
   private eventsService = inject(EventsService);
   private authService = inject(AuthService);
-  private router = inject(Router);
+  router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
   events: any[] = [];
