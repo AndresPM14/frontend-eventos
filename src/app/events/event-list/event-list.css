@@ -109,3 +109,6 @@
 }
 .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #0f3460; }
 .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; }
+
+.input-error { border-color: #e53935 !important; }
+.field-error { color: #e53935; font-size: 0.8rem; margin-top: 0.25rem; display: block; }

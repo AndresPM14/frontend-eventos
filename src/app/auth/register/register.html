@@ -6,21 +6,25 @@
     </div>
     <div class="form-group">
       <label>Nombre completo</label>
-      <input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Tu nombre" />
+      <input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Tu nombre" [class.input-error]="errores.nombre" />
+      <span class="field-error" *ngIf="errores.nombre">{{ errores.nombre }}</span>
     </div>
     <div class="form-group">
       <label>Correo electrónico</label>
-      <input type="email" [(ngModel)]="correo" name="correo" placeholder="usuario@unicauca.edu.co" />
+      <input type="email" [(ngModel)]="correo" name="correo" placeholder="usuario@unicauca.edu.co" [class.input-error]="errores.correo" />
+      <span class="field-error" *ngIf="errores.correo">{{ errores.correo }}</span>
     </div>
     <div class="form-group">
       <label>Contraseña</label>
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Mínimo 6 caracteres" />
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Mínimo 6 caracteres" [class.input-error]="errores.password" />
+      <span class="field-error" *ngIf="errores.password">{{ errores.password }}</span>
     </div>
     <div class="form-group">
       <label>Confirmar contraseña</label>
-      <input type="password" [(ngModel)]="confirmar" name="confirmar" placeholder="Repite tu contraseña" />
+      <input type="password" [(ngModel)]="confirmar" name="confirmar" placeholder="Repite tu contraseña" [class.input-error]="errores.confirmar" />
+      <span class="field-error" *ngIf="errores.confirmar">{{ errores.confirmar }}</span>
     </div>
-    <div class="error-msg" *ngIf="error">{{ error }}</div>
+    <div class="error-msg" *ngIf="errores.general">{{ errores.general }}</div>
     <button (click)="onRegister()" [disabled]="loading">
       {{ loading ? 'Registrando...' : 'Crear cuenta' }}
     </button>

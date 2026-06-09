@@ -34,3 +34,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .error-msg { color: #e53935; font-size: 0.875rem; margin-bottom: 0.5rem; text-align: center; }
 .link-login { text-align: center; margin-top: 1.2rem; color: #666; font-size: 0.9rem; }
 .link-login a { color: #0f3460; font-weight: 600; cursor: pointer; text-decoration: underline; }
+
+.input-error { border-color: #e53935 !important; }
+.field-error { color: #e53935; font-size: 0.8rem; margin-top: 0.25rem; display: block; }

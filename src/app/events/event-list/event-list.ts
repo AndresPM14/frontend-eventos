@@ -29,6 +29,7 @@ export class EventList implements OnInit {
   showModal = false;
   editingEvent: any = null;
   form = { titulo: '', descripcion: '', fecha: '', ubicacion: '', capacidad: 1 };
+  formErrors: any = {};
 
   ngOnInit() {
     this.loading = true;
@@ -38,20 +39,22 @@ export class EventList implements OnInit {
         this.loading = false;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('getEvents error:', err);
-        this.loading = false;
-        this.cdr.detectChanges();
-      }
+      error: () => { this.loading = false; this.cdr.detectChanges(); }
     });
-
     this.eventsService.getRegistrations().subscribe({
-      next: (data) => {
-        this.registrations = data;
-        this.cdr.detectChanges();
-      },
+      next: (data) => { this.registrations = data; this.cdr.detectChanges(); },
       error: () => {}
     });
+  }
+
+  validarForm(): boolean {
+    this.formErrors = {};
+    if (!this.form.titulo.trim()) this.formErrors.titulo = 'El título es obligatorio';
+    if (!this.form.descripcion.trim()) this.formErrors.descripcion = 'La descripción es obligatoria';
+    if (!this.form.fecha) this.formErrors.fecha = 'La fecha es obligatoria';
+    if (!this.form.ubicacion.trim()) this.formErrors.ubicacion = 'La ubicación es obligatoria';
+    if (!this.form.capacidad || this.form.capacidad < 1) this.formErrors.capacidad = 'La capacidad debe ser mayor a 0';
+    return Object.keys(this.formErrors).length === 0;
   }
 
   estaInscrito(eventId: number): boolean {
@@ -82,19 +85,19 @@ export class EventList implements OnInit {
   abrirCrear() {
     this.editingEvent = null;
     this.form = { titulo: '', descripcion: '', fecha: '', ubicacion: '', capacidad: 1 };
+    this.formErrors = {};
     this.showModal = true;
   }
 
   abrirEditar(event: any) {
     this.editingEvent = event;
-    this.form = {
-      titulo: event.titulo, descripcion: event.descripcion,
-      fecha: event.fecha, ubicacion: event.ubicacion, capacidad: event.capacidad
-    };
+    this.form = { titulo: event.titulo, descripcion: event.descripcion, fecha: event.fecha, ubicacion: event.ubicacion, capacidad: event.capacidad };
+    this.formErrors = {};
     this.showModal = true;
   }
 
   guardar() {
+    if (!this.validarForm()) return;
     if (this.editingEvent) {
       this.eventsService.updateEvent(this.editingEvent.id, this.form).subscribe({
         next: () => { this.showModal = false; this.mostrarMensaje('✅ Evento actualizado'); this.ngOnInit(); },
